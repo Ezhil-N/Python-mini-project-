@@ -1,0 +1,181 @@
+import csv
+import statistics
+import math
+from scipy.stats import kendalltau, spearmanr
+
+def read_text_file(file_path):
+    with open(file_path, 'r') as file:
+        data = file.read()
+    return data
+
+def read_csv_file(file_path):
+    data = []
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            data.append(row)
+    return data
+
+def calculate_mean(data):
+    return sum(data) / len(data)
+
+def calculate_median(data):
+    return statistics.median(data)
+
+def calculate_mode(data):
+    return statistics.mode(data)
+
+def calculate_std_dev(data):
+    return statistics.stdev(data)
+
+def calculate_variance(data):
+    return statistics.variance(data)
+
+def calculate_range(data):
+    return max(data) - min(data)
+
+def calculate_correlation_coefficient(data1, data2):
+    return statistics.correlation(data1, data2)
+
+def add(data):
+    return sum(data)
+
+def subtract(data):
+    return data[0] - sum(data[1:])
+
+def multiply(data):
+    result = 1
+    for num in data:
+        result *= num
+    return result
+
+def divide(data):
+    result = data[0]
+    for num in data[1:]:
+        result /= num
+    return result
+
+def kendall_correlation(data1, data2):
+    return kendalltau(data1, data2)[0]
+
+def spearman_correlation(data1, data2):
+    return spearmanr(data1, data2)[0]
+
+def write_to_csv_file(file_path, data):
+    with open(file_path, 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(data)
+
+def main():
+    input_text_file_path = 'input.txt'
+    output_csv_file_path = 'output.csv'
+
+    text_data = read_text_file(input_text_file_path)
+    data = [float(x) for x in text_data.split()]
+    data2 = [float(x) for x in text_data.split()]
+    print("\n")
+    print("Welcome to the Math Operation Calculator")
+    print("*****************************************")
+    print("| 1. Addition                           |")
+    print("| 2. Subtraction                        |")
+    print("| 3. Multiplication                     |")
+    print("| 4. Division                           |")
+    print("| 5. Mean                               |")
+    print("| 6. Median                             |")
+    print("| 7. Mode                               |")
+    print("| 8. Standard Deviation                 |")
+    print("| 9. Variance                           |")
+    print("| 10. Range                             |")
+    print("| 11. Correlation Coefficient           |")
+    print("| 12. Kendall Correlation               |")
+    print("| 13. Spearman Correlation              |")
+    print("| 14. Exit                              |")
+    print("*****************************************")
+
+    while True:
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            result = add(data)
+            print(f"Addition: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Addition: {result}"])
+
+        elif choice == "2":
+            result = subtract(data)
+            print(f"Subtraction: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Subtraction: {result}"])
+
+        elif choice == "3":
+            result = multiply(data)
+            print(f"Multiplication: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Multiplication: {result}"])
+
+        elif choice == "4":
+            result = divide(data)
+            print(f"Division: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Division: {result}"])
+
+        elif choice == "5":
+            result = calculate_mean(data)
+            print(f"Mean: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Mean: {result}"])
+
+        elif choice == "6":
+            result = calculate_median(data)
+            print(f"Median: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Median: {result}"])
+
+        elif choice == "7":
+            result = calculate_mode(data)
+            print(f"Mode: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Mode: {result}"])
+
+        elif choice == "8":
+            result = calculate_std_dev(data)
+            print(f"Standard Deviation: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Standard Deviation: {result}"])
+
+        elif choice == "9":
+            result = calculate_variance(data)
+            print(f"Variance: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Variance: {result}"])
+
+        elif choice == "10":
+            result = calculate_range(data)
+            print(f"Range: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Range: {result}"])
+
+        elif choice == "11":
+            result = calculate_correlation_coefficient(data, data2)
+            print(f"Correlation Coefficient: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Correlation Coefficient: {result}"])
+
+        elif choice == "12":
+            result = kendall_correlation(data, data2)
+            print(f"Kendall Correlation: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Kendall Correlation: {result}"])
+
+        elif choice == "13":
+            result = spearman_correlation(data, data2)
+            print(f"Spearman Correlation: {result}")
+            print("----------------------------------------")
+            write_to_csv_file(output_csv_file_path, [f"Spearman Correlation: {result}"])
+
+        elif choice == "14":
+            print("Exiting the program")
+            break
+
+if __name__ == "__main__":
+    main()
